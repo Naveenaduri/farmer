@@ -9,7 +9,7 @@ $test = "0";
 // Data for text message. This is the text message data.
 $sender = "TXTLCL"; // This is who the message appears to be from.
 $numbers = "91$num"; // A single number or a comma-seperated list of numbers
-$message = "OTP : $random";
+$message = "Dear Farmer,Your OTP for kisancart registration is: $random.";
 // 612 chars or less
 // A single number or a comma-seperated list of numbers
 $message = urlencode($message);

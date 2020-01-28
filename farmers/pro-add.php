@@ -236,12 +236,12 @@
 				ret = false;
 			}
 
-			if (pro_quantity == "") {
-				document.getElementById("quantity_err").innerHTML = " Quantity Cannot Be Empty";
+			if (isNaN(pro_quantity) || pro_quantity == "") {
+				document.getElementById("quantity_err").innerHTML = "Enter a Valid Quantity!";
 				ret = false;
 			}
-			if (pro_price == "") {
-				document.getElementById("price_err").innerHTML = " Price Cannot Be Empty";
+			if (isNaN(pro_price) || pro_price == "") {
+				document.getElementById("price_err").innerHTML = " Enter a Valid Price";
 				ret = false;
 			}
 
