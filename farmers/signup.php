@@ -38,7 +38,7 @@
 		<div class="center-sign">
 		    
 			<a href="" class="logo float-left">
-			<h1>Farmer Signup</h1>
+			<h1>Tribal Signup</h1>
 			</a>
 
 			<div class="panel card-sign">

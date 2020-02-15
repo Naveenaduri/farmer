@@ -46,3 +46,7 @@
 2020-01-27 14:39:21 - PHP Warning:  fsockopen(): php_network_getaddresses: getaddrinfo failed: No such host is known.  in C:\wamp64\www\kisancart\system\library\mail\smtp.php on line 87
 2020-01-27 14:39:21 - PHP Warning:  fsockopen(): unable to connect to ssl://smtp.gmail.com:465 (php_network_getaddresses: getaddrinfo failed: No such host is known. ) in C:\wamp64\www\kisancart\system\library\mail\smtp.php on line 87
 2020-01-28 12:12:33 - PHP Warning:  Use of undefined constant OPENCART_SERVER - assumed 'OPENCART_SERVER' (this will throw an Error in a future version of PHP) in C:\wamp64\www\kisancart\admin\controller\marketplace\marketplace.php on line 151
+2020-02-14 12:20:32 - PHP Warning:  mysqli::__construct(): (HY000/2002): No connection could be made because the target machine actively refused it.
+ in C:\wamp64\www\kisancart\system\library\db\mysqli.php on line 7
+2020-02-14 12:20:32 - PHP Warning:  DB\MySQLi::__construct(): Couldn't fetch mysqli in C:\wamp64\www\kisancart\system\library\db\mysqli.php on line 10
+2020-02-14 12:20:32 - PHP Warning:  DB\MySQLi::__construct(): Couldn't fetch mysqli in C:\wamp64\www\kisancart\system\library\db\mysqli.php on line 10

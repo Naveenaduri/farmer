@@ -102,7 +102,7 @@
 		<div class="center-sign">
 
 			<a href="" class="logo float-left">
-				<h1>Farmer Login</h1>
+				<h1>Tribal Login</h1>
 			</a>
 
 			<div class="panel card-sign">

@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <title>Auto Reload</title>
+</head>
+
+<body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+    <script>
+        rel();
+
+        function rel() {
+            setTimeout(function() {
+                $.ajax({
+                    url: 'file.php',
+                });
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>

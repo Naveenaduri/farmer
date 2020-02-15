@@ -67,7 +67,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Farmers</h2>
+					<h2>View Products</h2>
 				</header>
 
 				<!-- start: page -->
@@ -91,7 +91,7 @@
 									<tbody>
 										<?php
 										$product = "SELECT * FROM oc_product op,oc_product_description opd WHERE op.phnum='" . $_SESSION['farmer_num'] . "' and op.product_id=opd.product_id";
-										echo "<script>alert($product)</script>";
+										// echo "<script>alert($product)</script>";
 										$product = mysqli_query($conn, $product);
 										while ($pro_row = mysqli_fetch_assoc($product)) {
 										?>
@@ -99,9 +99,12 @@
 												<td><?php echo $pro_row['name']; ?></td>
 												<td><?php echo 'Rs. ' . $pro_row['price'] . '/-'; ?></td>
 												<?php 
-													if($pro_row['quantity']==1){
+													if($pro_row['quantity']>=1){
 												?>
 												<td>
+												<input type="hidden" value="<?php if (isset($_SESSION['farmer_num'])) {
+																	echo $_SESSION['farmer_num'];
+																} ?>" id='number'> 	 	
 													<form action="pro-add.php" method='post'>
 														
 														<input type="hidden" value="<?php echo $pro_row['product_id']; ?>" name='product_id'>
@@ -125,6 +128,9 @@
 								</table>
 							</div>
 						</section>
+						<input type="hidden" value="<?php if (isset($_SESSION['farmer_num'])) {
+																	echo $_SESSION['farmer_num'];
+																} ?>" id='number'>
 					</div>
 				</div>
 				<!-- end: page -->
@@ -213,6 +219,8 @@
 		}
 
 		function sold(id) {
+			var number = $('#number').val();
+			alert(number);
 			if (confirm("Confirm That The Product Has Been Sold")) {
 				$.ajax({
 					url: 'queries/product.php',
@@ -220,6 +228,7 @@
 					type: 'POST',
 					data: {
 						product_id: id,
+						number:number,
 						product_sold: ''
 					},
 					success: function(data) {

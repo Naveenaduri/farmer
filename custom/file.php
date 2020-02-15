@@ -104,7 +104,7 @@
 							$v1="select * from oc_product where product_id=".$a[2];
 							$v1=mysqli_query($conn,$v1);
 							$phn=mysqli_fetch_assoc($v1);
-							if(($phn['phnum']==$mob) && ($phn['status'] == 1) && ($phn['quantity'] == 1)){
+							if(($phn['phnum']==$mob) && ($phn['status'] == 1) && ($phn['quantity'] >= 1)){
 									?>
 									<script>
 									del(<?php echo $a[2].",".$mob ; ?>);
@@ -199,7 +199,7 @@
 							$v1="select * from oc_product where product_id=".$a[2];
 							$v1=mysqli_query($conn,$v1);
 							$phn=mysqli_fetch_assoc($v1);
-							if(($phn['phnum']==$mob) && ($phn['status'] == 1) && ($phn['quantity'] == 1)){
+							if(($phn['phnum']==$mob) && ($phn['status'] == 1) && ($phn['quantity'] >= 1)){
                             ?>
                         <script>
                             upd(<?php echo $a[2].",".$a[3].",".$a[4].",".$mob ?>);
@@ -259,7 +259,7 @@
 						    $v1="select * from oc_product where product_id=".$a[2];
 							$v1=mysqli_query($conn,$v1);
 							$phn=mysqli_fetch_assoc($v1);
-							if(($phn['status'] == 1) && ($phn['quantity'] == 1) && ($phn['phnum']==$mob)) {
+							if(($phn['status'] == 1) && ($phn['quantity'] >= 1) && ($phn['phnum']==$mob)) {
 								?>
 								<script>
 									sold(<?php echo $a[2].",".$mob ; ?>);
@@ -289,8 +289,8 @@
 								 echo "..Product is Added to Sold out Category..". "<br>";
 							}
 							else{
-								echo "..Unable to Add Product Sold Out Category..". "<br>";
-								$message = "Unable to Add Product Sold Out Category,";
+								echo "..Unable to Add Product to Sold Out Category..". "<br>";
+								$message = "Unable to Add Product to Sold Out Category,";
 								include_once 'message.php';
 							}
 							
@@ -341,5 +341,10 @@
             }
             
         } ?>
+        <script>
+            setTimeout(function() {
+            location.reload();
+            }, 10000);
+        </script>
     </body>
 </html>

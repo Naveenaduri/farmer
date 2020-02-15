@@ -19,7 +19,7 @@ class ControllerCommonColumnLeft extends Controller {
 			$data['farmer']= array(
 				'id'       => 'menu-farmer',
 				'icon'	   => 'fa-check',
-				'name'	   => 'Farmer Approval',
+				'name'	   => 'Tribal Approval',
 				'href'     => $this->url->link('farmer/approval', 'user_token=' . $this->session->data['user_token'], true),
 				'children' => array()
 			);

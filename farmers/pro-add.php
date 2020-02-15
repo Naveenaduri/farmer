@@ -73,12 +73,11 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Farmer</h2>
+					<h2>Add Products</h2>
 				</header>
 				<?php
 				if (isset($_POST['product_id'])) {
 					$product = "SELECT * FROM oc_product op,oc_product_description opd WHERE phnum='" . $_SESSION['farmer_num'] . "' and op.product_id=opd.product_id and op.product_id=" . $_POST['product_id'];
-
 					$product = mysqli_query($conn, $product);
 					$product = mysqli_fetch_assoc($product);
 				}
@@ -95,11 +94,25 @@
 														} ?> Product</h2>
 							</header>
 							<div class="card-body">
+						    <form id="okay" enctype="multipart/form-data">
+								<div class="form-group row">
+									<div class="col-lg-12 thumbnail-gallery" align="center">
+										<a class="img-thumbnail lightbox">
+													<img class="img-fluid" width="250" src=<?php if(isset($_POST['product_id'])){ echo "../image/".$product['image']; } else { echo"../image/catalog/items/default-4.png"; } ?> alt='' id="output">
+										</a>
+									</div>	
+								</div>
+							    <div class="form-group row">
+										<label class="col-lg-3 control-label text-lg-right pt-2" for="inputDefault">Select Image</label>
+										<div class="col-lg-6">
+											<input type="file" class="form-control" id="file" name="file" onchange="loadFile(event)">
+										</div>
+								</div>
 								<div class="form-group row">
 									<label class="col-lg-3 control-label text-lg-right pt-2" for="inputDefault">Product Name<span class="required">*</span></label>
 									<div class="col-lg-6">
 
-										<select data-plugin-selectTwo class="form-control populate" id='pro_id' <?php if (isset($_POST['product_id'])) {
+										<select data-plugin-selectTwo class="form-control populate" id='pro_id' name='pro_id' <?php if (isset($_POST['product_id'])) {
 																													echo "disabled";
 																												} ?>>
 											<option value=""> --SELECT-- </option>
@@ -121,7 +134,7 @@
 								<div class="form-group row">
 									<label class="col-lg-3 control-label text-lg-right pt-2" for="inputDefault">Quantity<span class="required">*</span></label>
 									<div class="col-lg-6">
-										<input type="text" class="form-control" id="pro_quantity" value="<?php if (isset($_POST['product_id'])) {
+										<input type="text" class="form-control" name='pro_quantity' id="pro_quantity" value="<?php if (isset($_POST['product_id'])) {
 																												echo $product['qnt'];
 																											} ?>">
 										<div id="quantity_err" style="color:red"></div>
@@ -130,15 +143,34 @@
 								<div class="form-group row">
 									<label class="col-lg-3 control-label text-lg-right pt-2" for="inputDefault">Price(in Rs.)<span class="required">*</span></label>
 									<div class="col-lg-6">
-										<input type="text" class="form-control" id="pro_price" value="<?php if (isset($_POST['product_id'])) {
+										<input type="text" class="form-control" name='pro_price' id="pro_price" value="<?php if (isset($_POST['product_id'])) {
 																											echo $product['price'];
 																										} ?>">
 										<div id="price_err" style="color:red"></div>
 									</div>
 								</div>
-
-								<hr>
 								<div class="form-group row">
+									<div class="col-lg-6"></div>
+									<div class="col-lg-3">
+										<?php
+										if (isset($_POST['product_id'])) {
+											echo "<input type='hidden' value='1' name='product_upd'>";
+										} else {
+											echo "<input type='hidden' value='1' name='product_add'>";
+										}
+										?>
+									</div>
+									<input type="hidden" value="<?php if (isset($_POST['product_id'])) {
+																	echo $_POST['product_id'];
+																} ?>" id='product_id' name='product_id'>
+																<input type="hidden" value="<?php if (isset($_SESSION['farmer_num'])) {
+																	echo $_SESSION['farmer_num'];
+																} ?>" id='number' name='number'>
+									<div class="col-lg-3"></div>
+							</div>
+								<hr>
+							</form>
+							<div class="form-group row">
 									<div class="col-lg-6"></div>
 									<div class="col-lg-3">
 										<?php
@@ -149,15 +181,11 @@
 										}
 										?>
 									</div>
-									<input type="hidden" value="<?php if (isset($_POST['product_id'])) {
-																	echo $_POST['product_id'];
-																} ?>" id='product_id'>
-																<input type="hidden" value="<?php if (isset($_SESSION['farmer_num'])) {
-																	echo $_SESSION['farmer_num'];
-																} ?>" id='number'>
+									
 									<div class="col-lg-3"></div>
-								</div>
 							</div>
+							</div>
+
 						</section>
 					</div>
 				</div>
@@ -219,13 +247,16 @@
 	<!-- Examples -->
 	<script src="js/examples/examples.dashboard.js"></script>
 	<script>
-		function add_product() {
+		var loadFile = function(event) {
+			var output = document.getElementById('output');
+			output.src = URL.createObjectURL(event.target.files[0]);
+		};
 
+		function add_product() {
 			var pro_id = $('#pro_id').val();
 			var pro_quantity = $('#pro_quantity').val();
 			var pro_price = $('#pro_price').val();
 			var number = $('#number').val();
-
 			var ret = true;
 			document.getElementById("name_err").innerHTML = "";
 			document.getElementById("quantity_err").innerHTML = "";
@@ -245,22 +276,19 @@
 				ret = false;
 			}
 
-
 			if (ret == false) {
 				return false;
 			}
-
+			// var n=new FormData(okay);
+			// alert(n);			
 			$.ajax({
 				url: 'queries/product.php',
-				data: {
-					pro_id: pro_id,
-					pro_quantity: pro_quantity,
-					pro_price: pro_price,
-					number:number,
-					product_add: ''
-				},
+				data: new FormData(okay),
 				dataType: 'text',
 				type: 'post',
+				contentType: false,
+				cache: false,
+				processData:false,
 				success: function(data) {
 					alert(data);
 					window.location = 'pro_view.php';
@@ -298,15 +326,12 @@
 
 			$.ajax({
 				url: 'queries/product.php',
-				data: {
-					product_id: product_id,
-					pro_quantity: pro_quantity,
-					pro_price: pro_price,
-					number:number,
-					product_upd: ''
-				},
+				data: new FormData(okay),
 				dataType: 'text',
 				type: 'post',
+				contentType: false,
+				cache: false,
+				processData:false,
 				success: function(data) {
 					alert(data);
 					window.location = 'pro_view.php';
@@ -317,6 +342,7 @@
 			});
 		}
 	</script>
+	
 </body>
 
 </html>

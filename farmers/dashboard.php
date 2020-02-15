@@ -81,7 +81,7 @@
 
 			<section role="main" class="content-body">
 				<header class="page-header">
-					<h2>Farmer</h2>
+					<h2>Message Format</h2>
 				</header>				
 				<!-- start: page -->
 
@@ -92,12 +92,12 @@
                       ADD Product via SMS
                     </div>
                       <p style="font-size:16px;">Send SMS to : 9220592205</p>
-                      <p  style="font-size:16px;">ADD  Product_ID  Quantity(in KG)  Price(in RS) </p>
+                      <p  style="font-size:16px;">ADD  Product_ID  Quantity  Price(in RS) </p>
                     <div class="alert alert-success" role="alert">
                       UPDATE Product via SMS
                     </div>
                       <p>Send SMS to : 9220592205</p>
-                      <p>UPD   Product_ID  Quantity(in KG)  Price(in RS) </p>
+                      <p>UPD   Product_ID  Quantity  Price(in RS) </p>
                     <div class="alert alert-danger" role="alert">
                       DELETE Product via SMS
                     </div>

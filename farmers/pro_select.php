@@ -91,7 +91,7 @@
 								<div class="form-group row">
 									<label class="col-lg-3 control-label text-lg-right pt-2">Product Category<span class="required">*</span></label>
 									<div class="col-lg-6">
-										<select data-plugin-selectTwo class="form-control populate" id='pro_category' onfocusout="selectCat();">
+										<select data-plugin-selectTwo class="form-control populate" id='pro_category' onblur="selectCat();">
 											<option value=""> --SELECT-- </option>
 											<?php	
 											while ($dept_row = mysqli_fetch_assoc($q1)) {
@@ -129,6 +129,9 @@
 																} ?>" id='farmer_num'> -->
 									<div class="col-lg-3"></div>
 								</div>
+								<input type="hidden" value="<?php if (isset($_SESSION['farmer_num'])) {
+																	echo $_SESSION['farmer_num'];
+																} ?>" id='number'>
                                </form>
 							</div>
 						</section>
@@ -193,17 +196,20 @@
 	{
 		var procat = $('#pro_category').val();
 		var mySelect = $('#pro_name');
+		var number = $('#number').val();
+
 		// alert(procat);
 		$.ajax({
 				url: 'queries/product.php',
 				data: {
 					procat:procat,
+					number:number,
 					product_sel: ''
 				},
 				dataType: 'text',
 				type: 'post',
 				success: function(data) {
-					 //console.log(data);
+					//  console.log(data);
 					 $(mySelect).empty();
 					var res = data.split("@");
 
